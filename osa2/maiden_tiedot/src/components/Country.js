@@ -1,12 +1,17 @@
 import React from 'react'
 
-const Country = (props) => {
+const Country = ({country, languages}) => {
     return (
         <div>
-            <h1>{props.name}</h1>
-            <p>capital {props.capital}</p>
-            <p>population {props.population}</p>
+            <h1>{country.name}</h1>
+            <p>capital {country.capital}</p>
+            <p>population {country.population}</p>
             <h2>languages</h2>
+            <ul>
+                {languages.map(language =>
+                    <li key = {language.name}>{language.name}</li>)}
+            </ul>
+            <img style={{width: 100}} src={country.flag}></img>
         </div>
     )
 }
@@ -14,9 +19,5 @@ const Country = (props) => {
 export default Country
 
 
-/*
- <ul>
-                {props.languages.map(language =>
-                    <li>{language.name}</li>)}
-            </ul>
-            */
+
+            
