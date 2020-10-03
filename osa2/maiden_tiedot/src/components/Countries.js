@@ -1,13 +1,17 @@
 import React from 'react'
 import Country from './Country'
 
-const Countries = ({countriesToShow}) => {
+const Countries = ({countriesToShow, handleClick}) => {
+
     if (countriesToShow.length > 10) {
         return <p>Too many matches, specify another filter</p>
     } else if (countriesToShow.length < 10 && countriesToShow.length > 1) {
-        return countriesToShow.map(country =>
-             <p key={country.numericCode}>{country.name}</p>)
-    } else {
+        return(
+            countriesToShow.map(country =>
+             <p key={country.numericCode}>
+                 {country.name} <button onClick={()=> handleClick(country.name)}>show</button>       
+             </p>)
+            )} else {
             return (
                 <div>
                     {countriesToShow.map(country => 
@@ -15,6 +19,5 @@ const Countries = ({countriesToShow}) => {
                     )}
                 </div>
     )}}
-
 
 export default Countries

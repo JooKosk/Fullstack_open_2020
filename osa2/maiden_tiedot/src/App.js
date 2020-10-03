@@ -24,11 +24,14 @@ const searchResults =! filterText
 const handleFilterChange = (e) => {
   setFilterText(e.target.value)
 }
+const handleClick = (props) => {
+  setFilterText(props)
+}
 
   return (
     <div>
       <Filter filterText = {filterText} handleFilter = {handleFilterChange} />
-      <Countries countriesToShow = {searchResults} />
+      <Countries countriesToShow = {searchResults} handleClick = {handleClick} />
     </div>
   );
 }
