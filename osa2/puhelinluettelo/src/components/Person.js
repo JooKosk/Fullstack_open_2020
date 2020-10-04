@@ -2,13 +2,17 @@ import React from 'react'
 
 const Person = (props) => {
     return (
-    <div>
+    <>
         <Details name = {props.name} number = {props.number} />
-    </div>
+    </>
 )}
 
-const Details = ({name, number}) => (
-    <p>{name} {number}</p>
-)
+const Details = (props) => {
+    return (
+        <>
+        {props.name} {props.number}
+        </>
+    )
+    }
 
 export default Person
