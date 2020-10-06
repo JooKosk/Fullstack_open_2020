@@ -2,40 +2,25 @@
   "persons": [
     {
       "name": "Arto Hellas",
-      "number": "040-123456",
+      "number": "1230435",
       "id": 1
     },
     {
       "name": "Ada Lovelace",
-      "number": "39-44-5323523",
+      "number": "39-44-53243",
       "id": 2
     },
     {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
+      "name": "Martti Ahtisaari",
+      "key": "Martti Ahtisaari",
+      "number": "12323295",
       "id": 3
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
+      "name": "Tarja Halonen",
+      "key": "Tarja Halonen",
+      "number": "1235456",
       "id": 4
-    },
-    {
-      "name": "Pasi Karbin",
-      "key": "Pasi Karbin",
-      "number": "32-24-54122",
-      "id": 5
-    },
-    {
-      "name": "Albert",
-      "number": "0343-1222-4",
-      "id": 6
-    },
-    {
-      "name": "Super Mario 64",
-      "key": "Super Mario 64",
-      "number": "1337",
-      "id": 7
     }
   ]
 }

@@ -1,18 +1,14 @@
 import React from 'react'
 import Person from './Person'
-import personcontrol from '../services/personcontrol'
 
-const Persons = ({personsToShow}) => {
+const Persons = ({personsToShow, handleClick}) => {
 
     return (
     <div>
         {personsToShow.map(person => 
         <p key ={person.name}>
           <Person key ={person.name} name = {person.name} number = {person.number} /> 
-          <button onClick={() =>
-           personcontrol.remove(person)
-           .then(personToRemove =>
-           personsToShow.filter(person => person !== personToRemove))}>delete</button>
+          <button onClick={() => handleClick(person)}>delete</button>
         </p>)}
       </div>
     )
