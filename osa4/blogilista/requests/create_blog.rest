@@ -2,8 +2,8 @@ post http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "My very sincere blog",
+    "title": "Nice page",
     "author": "Ex-Googol Ex-Feisbook dev",
     "url": "www.mechblead.com",
-    "likes": 1
+    "likes": 2
 }
