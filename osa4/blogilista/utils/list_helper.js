@@ -1,7 +1,8 @@
+/*
 const _ = require('lodash')
 const array = require('lodash/array')
-
-const dummy = (blogs) =>  {
+*/
+const dummy = () =>  {
   return 1
 }
 
