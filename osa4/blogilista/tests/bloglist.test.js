@@ -47,7 +47,6 @@ const listWithManyBlogs = [
   },
 ]
 
-
 test('dummy returns one', () => {
   const blogs = []
 
@@ -94,12 +93,5 @@ describe('favorite blog', () => {
       author: 'Edsger W. Dijkstra',
       likes: 5,
     })
-  })
-})
-
-describe('most blogs', () => {
-  test('bigger list returns author with most blogs', () => {
-    const result = listHelper.mostBlogs(listWithManyBlogs)
-    expect(result).toEqual()
   })
 })

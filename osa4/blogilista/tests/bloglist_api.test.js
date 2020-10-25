@@ -6,6 +6,7 @@ const Blog = require('../models/blog')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const test_helper = require('./test_helper')
+const logger = require('../utils/logger')
 
 const initialBlogs = [
   {
@@ -47,7 +48,7 @@ test('blog id is defined', async () => {
   expect(response.body[0]).toBeDefined()
 })
 
-test ('http post adds valid blog', async () => {
+test ('new blog is added only with valid token', async () => {
   const newBlog = {
     title: 'I am a test blog',
     author: 'Makerman man',
@@ -55,17 +56,29 @@ test ('http post adds valid blog', async () => {
     likes: 10,
   }
 
+  const user = {
+    username: 'testi',
+    password: 'salasana'
+  }
+
+  const response = await api
+    .post('/api/login')
+    .send(user)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${response.body.token}`)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
-  const response = await api.get('/api/blogs')
+  const returnedBlogs = await test_helper.blogsInDb()
 
-  const blogContents = response.body.map(r => r.title)
+  const blogContents = returnedBlogs.map(r => r.title)
 
-  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(returnedBlogs).toHaveLength(initialBlogs.length + 1)
   expect(blogContents).toContain('I am a test blog')
 })
 
@@ -77,18 +90,30 @@ test('new blog likes are 0 if not defined', async () => {
     likes: '',
   }
 
+  const user = {
+    username: 'testi',
+    password: 'salasana'
+  }
+
+  const response = await api
+    .post('/api/login')
+    .send(user)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${response.body.token}`)
     .send(newBlog)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
-  const response = await api.get('/api/blogs')
+  const returnedBlogs = await test_helper.blogsInDb()
 
-  const addedBlog = response.body[response.body.length-1]
+  const addedBlog = returnedBlogs[returnedBlogs.length-1]
 
-  console.log(addedBlog.likes)
-  console.log(addedBlog)
+  logger.info(addedBlog.likes)
+  logger.info(addedBlog)
   expect(addedBlog.likes).toBe(0)
 })
 
@@ -98,21 +123,52 @@ test('blogs cant be added without url or title', async () => {
     likes: '',
   }
 
+  const user = {
+    username: 'testi',
+    password: 'salasana'
+  }
+
+  const response = await api
+    .post('/api/login')
+    .send(user)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
   await api
     .post('/api/blogs')
+    .set('Authorization', `Bearer ${response.body.token}`)
     .send(newBlog)
     .expect(400)
 
-  const response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(initialBlogs.length)
+  const returnedBlogs = await test_helper.blogsInDb()
+  expect(returnedBlogs).toHaveLength(initialBlogs.length)
 })
 
-describe ('when initial db size is one user', () => {
+test('blogs cant be added without a valid token', async () => {
+  const newBlog = {
+    title: 'I am a test blog',
+    author: 'Makerman man',
+    url: 'wwww.goooogol.com',
+    likes: 10,
+  }
+
+  await api
+    .post('/api/blogs')
+    .set('Authorization', 'Bearer af33451k4')
+    .send(newBlog)
+    .expect(401)
+    .expect('Content-Type', /application\/json/)
+
+  const returnedBlogs = await test_helper.blogsInDb()
+  expect(returnedBlogs).toHaveLength(initialBlogs.length)
+})
+
+describe ('when initial db size is one user, user tests', () => {
   beforeEach(async () => {
     await User.deleteMany({})
 
     const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
+    const user = new User({ username: 'testi', passwordHash })
 
     await user.save()
   })
