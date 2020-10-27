@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -34,7 +34,6 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
     try {
       const user = await loginService.login({
         username, password,
@@ -54,8 +53,7 @@ const App = () => {
       }, 5000)
     }
   }
-  
-  const handleLogout = async (event) => {
+  const handleLogout = async () => {
     window.localStorage.removeItem('loggedBlogUser')
   }
 
@@ -75,12 +73,12 @@ const App = () => {
     return (
       <div>
         <Notification message ={notificationMessage} errorState = {errorState} />
-        <LoginForm 
-        handleLogin = {handleLogin}
-        setUsername = {setUsername}
-        setPassword = {setPassword}
-        password = {password}
-        username = {username}
+        <LoginForm
+          handleLogin = {handleLogin}
+          setUsername = {setUsername}
+          setPassword = {setPassword}
+          password = {password}
+          username = {username}
         />
       </div>
     )
@@ -94,7 +92,7 @@ const App = () => {
       <p>{user.name} logged in <button onClick = {handleLogout}>logout</button> </p>
       <Togglable buttonLabel = 'new blog' ref = {blogFormRef}>
         <BlogForm createBlog = {addBlog}/>
-        </Togglable>
+      </Togglable>
       {sortedBlogs.map(blog =>
         <Blog user = {user} key={blog.id} blog={blog} />
       )}

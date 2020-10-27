@@ -1,23 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Notification =({ message,errorState }) => {
-    if (message === null) {
-      return null
-    }
 
-    if (errorState === '') {
-      return (
-        <div style = {style}>
-          {message}
-        </div>
-      )
-    } else if (errorState === 'err') {
-      return (
-        <div style = {errorStyle}>
-          {message}
-        </div>
-      )
-    }
+  Notification.propTypes = {
+    errorState: PropTypes.string.isRequired
+  }
+  if (message === null) {
+    return null
+  }
+
+  if (errorState === '') {
+    return (
+      <div style = {style}>
+        {message}
+      </div>
+    )
+  } else if (errorState === 'err') {
+    return (
+      <div style = {errorStyle}>
+        {message}
+      </div>
+    )
+  }
 }
 
 const style = {
