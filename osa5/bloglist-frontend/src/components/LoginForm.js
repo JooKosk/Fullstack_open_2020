@@ -1,6 +1,11 @@
 import React from 'react'
 
-const LoginForm = ({handleLogin, setUsername, setPassword, password, username}) => {
+const LoginForm = ({
+  handleLogin,
+  setUsername, 
+  setPassword, 
+  password, 
+  username}) => {
   return (
     <div>
     <h2>Login</h2>
