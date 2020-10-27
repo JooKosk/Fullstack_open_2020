@@ -14,11 +14,6 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [notificationMessage, setNotificationMessage] = useState(null)
   const [errorState, setErrorState] = useState('')
-  const [blogInfo, setBlogInfo] = useState({
-    title: "",
-    author: "",
-    url: "",
-  })
 
   const blogFormRef = useRef()
 
@@ -64,15 +59,8 @@ const App = () => {
     window.localStorage.removeItem('loggedBlogUser')
   }
 
-  const addBlog = async (event) => {
-    event.preventDefault()
+  const addBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
-    const blogObject = {
-      title: blogInfo.title,
-      author: blogInfo.author,
-      url: blogInfo.url,
-      likes: 0
-    }
     const blogInDb = await blogService.create(blogObject)
     if (blogInDb) {
       setNotificationMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
@@ -81,13 +69,7 @@ const App = () => {
       }, 5000)
     }
   }
-
-  const handleChange = (event) => {
-    setBlogInfo({
-      ...blogInfo,
-      [event.target.name]: event.target.value
-    })
-  }
+  const sortedBlogs = blogs.sort((prev, curr) => curr.likes - prev.likes)
 
   if (user === null) {
     return (
@@ -111,14 +93,10 @@ const App = () => {
       />
       <p>{user.name} logged in <button onClick = {handleLogout}>logout</button> </p>
       <Togglable buttonLabel = 'new blog' ref = {blogFormRef}>
-        <BlogForm 
-          handleChange = {handleChange}
-          addBlog = {addBlog}
-          blogInfo = {blogInfo}
-          />
+        <BlogForm createBlog = {addBlog}/>
         </Togglable>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+      {sortedBlogs.map(blog =>
+        <Blog user = {user} key={blog.id} blog={blog} />
       )}
     </div>
   )
