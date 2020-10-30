@@ -69,6 +69,13 @@ const App = () => {
   }
   const sortedBlogs = blogs.sort((prev, curr) => curr.likes - prev.likes)
 
+  const handleClick = async (blog, updatedBlog) => {
+    setBlogs(blogs.map(blog => blog.id === updatedBlog.id ? {
+      ...blog,
+      likes: blog.likes +1 } : blog))
+    await blogService.update(blog.id, updatedBlog)
+  }
+
   if (user === null) {
     return (
       <div>
@@ -94,7 +101,7 @@ const App = () => {
         <BlogForm createBlog = {addBlog}/>
       </Togglable>
       {sortedBlogs.map(blog =>
-        <Blog user = {user} key={blog.id} blog={blog} />
+        <Blog user = {user} key={blog.id} blog={blog} updateLikes = {handleClick} />
       )}
     </div>
   )

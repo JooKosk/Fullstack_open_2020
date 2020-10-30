@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog, user, updateLikes }) => {
   blog.PropTypes = {
     blog: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
@@ -20,15 +20,9 @@ const Blog = ({ blog, user }) => {
     marginBottom: 5
   }
 
-  const addLike = async () => {
-    const updatedBlog = {
-      user: blog.user,
-      likes: blog.likes +1,
-      author: blog.author,
-      title: blog.title,
-      url: blog.url
-    }
-    await blogService.update(blog.id, updatedBlog)
+  const updatedBlog = {
+    ...blog,
+    likes: blog.likes + 1
   }
 
   const removeBlog = async () => {
@@ -49,7 +43,7 @@ const Blog = ({ blog, user }) => {
             {blog.url}
           </div>
           <div>
-            likes {blog.likes} <button onClick = {addLike}>like</button>
+            likes {blog.likes} <button onClick = {() => updateLikes(blog,updatedBlog)}>like</button>
           </div>
           <div>
             {blog.author}

@@ -10,12 +10,12 @@ test('blog renders initially displaying title and author', () => {
     url: 'jabaduu.com/theWonders',
     likes: 0,
     user: {
-      username: 'mluukkai',
-      name: 'Matti Luukkainen'
+      username: 'hessuhopo',
+      name: 'Hessu Hopo'
     }
   }
 
-  const user = { name : 'Matti Luukkainen' }
+  const user = { name : 'Hessu Hopo' }
 
   const component = render(
     <Blog blog = {blog} user = {user} />
@@ -41,12 +41,12 @@ test('all blog info is rendered when view button has been pressed', async () => 
     url: 'jabaduu.com/theWonders',
     likes: 0,
     user: {
-      username: 'mluukkai',
-      name: 'Matti Luukkainen'
+      username: 'hessuhopo',
+      name: 'Hessu Hopo'
     }
   }
 
-  const user = { name : 'Matti Luukkainen' }
+  const user = { name : 'Hessu Hopo' }
 
   const component = render(
     <Blog blog={blog} user={user}/>
@@ -76,30 +76,25 @@ test('if like button is pressed twice, event handler is called twice', async () 
     url: 'jabaduu.com/theWonders',
     likes: 0,
     user: {
-      username: 'mluukkai',
-      name: 'Matti Luukkainen'
+      username: 'hessuhopo',
+      name: 'Hessu Hopo'
     }
   }
 
-  const user = { name : 'Matti Luukkainen' }
+  const user = { name : 'Hessu Hopo' }
 
   const mockHandler = jest.fn()
 
   const component = render(
-    <Blog blog={blog} user={user}/>
+    <Blog blog={blog} user={user} updateLikes={mockHandler} />
   )
-
-  component.debug()
 
   const viewButton = component.getByText('view')
   fireEvent.click(viewButton)
 
-  component.debug()
-
   const likeButton = component.getByText('like')
-  likeButton.onclick = () => mockHandler()
-  fireEvent.click=(likeButton)
-  fireEvent.click=(likeButton)
+  fireEvent.click(likeButton)
+  fireEvent.click(likeButton)
 
-  expect(mockHandler.mock.calls).toHaveLength(2)
+  expect(mockHandler.mock.calls.length).toBe(2)
 })
