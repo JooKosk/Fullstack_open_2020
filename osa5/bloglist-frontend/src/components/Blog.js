@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const Blog = ({ blog, user }) => {
   blog.PropTypes = {
     blog: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
   }
   const [allInfoVisible, setAllInfoVisible] = useState(false)
   const toggleVisibility = () => {
@@ -40,7 +40,7 @@ const Blog = ({ blog, user }) => {
 
   if (allInfoVisible) {
     return (
-      <div style = {style}>
+      <div style = {style} className ='blogAllInfo'>
         <div>
           <div>
             {blog.title} {blog.author} <button onClick={toggleVisibility}>hide</button>
@@ -62,7 +62,7 @@ const Blog = ({ blog, user }) => {
     )
   }
   return(
-    <div style = {style}>
+    <div style = {style} className = 'blog'>
       <div>
         {blog.title} {blog.author} <button onClick={toggleVisibility}>view</button>
       </div>
