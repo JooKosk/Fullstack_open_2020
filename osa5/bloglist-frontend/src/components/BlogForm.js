@@ -38,6 +38,7 @@ const BlogForm = ({ createBlog }) => {
           type="text"
           value={blogInfo.title}
           name="title"
+          id="title"
           onChange={handleChange}
         />
       </div>
@@ -47,6 +48,7 @@ const BlogForm = ({ createBlog }) => {
           type="text"
           value={blogInfo.author}
           name="author"
+          id="author"
           onChange={handleChange}
         />
       </div>
@@ -56,6 +58,7 @@ const BlogForm = ({ createBlog }) => {
           type="text"
           value={blogInfo.url}
           name="url"
+          id="url"
           onChange={handleChange}
         />
       </div>
