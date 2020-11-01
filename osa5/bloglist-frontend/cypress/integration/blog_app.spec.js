@@ -1,3 +1,5 @@
+const { default: blogs } = require('../../src/services/blogs')
+
 describe ('Blog app', function() {
   beforeEach(function() {
     cy.request('POST', 'http://localhost:3001/api/testing/reset')
@@ -51,31 +53,59 @@ describe ('Blog app', function() {
       cy.contains('a new blog')
     })
 
-    it('A blog can be liked', function () {
-      cy.contains('new blog').click()
-      cy.get('#title').type('a new blog')
-      cy.get('#author').type('Martin Jabinskizka')
-      cy.get('#url').type('www.myblog.com')
-      cy.contains('create').click()
-      cy.reload()
+    describe('and a blog exists', function() {
+      beforeEach(function () {
+        cy.createBlog({
+          title: 'Coolio boolio',
+          author: 'Tester man',
+          url: 'www.testerman.com',
+          likes: 0
+        })
+      })
 
-      cy.contains('view').click()
-      cy.contains('like').click()
-      cy.contains('likes 1')
+      it('blog can be liked', function () {
+        cy.contains('view').click()
+        cy.contains('like').click()
+        cy.contains('likes 1')
+      })
+
+      it('blog can be removed by authorised user', function () {
+        cy.contains('view').click()
+        cy.contains('remove').click()
+
+        cy.reload()
+        cy.get('html').should('not.contain', 'a new blog')
+      })
     })
 
-    it.only('blogs added by logged in user can be removed', function () {
-      cy.contains('new blog').click()
-      cy.get('#title').type('a new blog')
-      cy.get('#author').type('Martin Jabinskizka')
-      cy.get('#url').type('www.myblog.com')
-      cy.contains('create').click()
-      cy.reload()
+    describe('multiple blogs exist', function () {
+      beforeEach(function () {
+        cy.createBlog({
+          title: 'Coolio boolio',
+          author: 'Tester man',
+          url: 'www.testerman.com',
+          likes: 0
+        })
+        cy.createBlog({
+          title: 'Testauksen perusteet',
+          author: 'Tester man',
+          url: 'www.testerman.com/perusteet',
+          likes: 5
+        })
+        cy.createBlog({
+          title: 'Testauksen jatkokurssi',
+          author: 'Testermans brother',
+          url: 'www.testermanbrother.com/jatkokurssi',
+          likes: 10
+        })
+      })
 
-      cy.contains('view').click()
-      cy.contains('remove').click()
-      cy.reload()
-      cy.get('html').should('not.contain', 'a new blog')
+      it.only('blogs are listed according to amount of likes', function () {
+        cy.get('.blog').then(blog => {blog.find('button').click() })
+        cy.get('.blogAllInfo').eq(0).should('contain', 'likes 10')
+        cy.get('.blogAllInfo').eq(1).should('contain', 'likes 5')
+        cy.get('.blogAllInfo').eq(2).should('contain', 'likes 0')
+      })
     })
   })
 })
