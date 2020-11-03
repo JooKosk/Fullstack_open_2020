@@ -1,0 +1,63 @@
+{
+  "anecdotes": [
+    {
+      "id": "47145"
+    },
+    {
+      "Adding manpower to a late software project makes it later!": "",
+      "id": "21149"
+    },
+    {
+      "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.": "",
+      "id": "69581"
+    },
+    {
+      "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.": "",
+      "id": "36975"
+    },
+    {
+      "Premature optimization is the root of all evil.": "",
+      "id": "25170"
+    },
+    {
+      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+      "id": "98312",
+      "votes": 9
+    },
+    {
+      "anecdote": "If it be like that, it really do be like that",
+      "votes": 1,
+      "id": "66y6V7S"
+    },
+    {
+      "anecdote": "If it be like that, it really do be like that",
+      "votes": 0,
+      "id": "mngnPb6"
+    },
+    {
+      "anecdote": "If it be like that, it really do be be like that",
+      "votes": 0,
+      "id": "7Oz_4Wu"
+    },
+    {
+      "content": "If it be like that, it really do be like that",
+      "votes": 0,
+      "id": "I9jjehJ"
+    },
+    {
+      "content": "If it be like that, it really do be be like that",
+      "votes": 0,
+      "id": "xac87yk"
+    },
+    {
+      "content": "Redux thunkkaamista, sitä kun pääsis tekemään",
+      "votes": 0,
+      "id": "ok9LQTo"
+    },
+    {
+      "content": "If it be like that, it really do be like that",
+      "votes": 0,
+      "id": "RJv93ls"
+    }
+  ]
+}

@@ -1,9 +1,14 @@
 const notificationAtStart = ''
 
-export const newNotification = notification => {
-  return {
+export const newNotification = (notification, timeout) => {
+  return async dispatch => {
+  dispatch({
     type: 'SET_NOTIFICATION',
-    notification,
+    notification
+  })
+  setTimeout(() => {
+      dispatch(removeNotification())
+    }, timeout * 1000);
   }
 }
 
@@ -18,12 +23,10 @@ const notificationReducer = (state = notificationAtStart, action) => {
   switch (action.type) {
     case 'SET_NOTIFICATION':
       return action.notification
-  }
-  switch (action.type) {
     case 'REMOVE_NOTIFICATION':
       return null
-      default:
-        return state
+  default:
+    return state 
   }
 }
 
