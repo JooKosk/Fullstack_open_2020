@@ -1,63 +1,74 @@
 {
   "anecdotes": [
     {
-      "id": "47145"
+      "content": "Adding manpower to a late software project makes it later!",
+      "id": "21149",
+      "votes": 0
     },
     {
-      "Adding manpower to a late software project makes it later!": "",
-      "id": "21149"
+      "content": "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
+      "id": "69581",
+      "votes": 0
     },
     {
-      "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.": "",
-      "id": "69581"
+      "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+      "id": "36975",
+      "votes": 0
     },
     {
-      "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.": "",
-      "id": "36975"
-    },
-    {
-      "Premature optimization is the root of all evil.": "",
-      "id": "25170"
+      "content": "Premature optimization is the root of all evil.",
+      "id": "25170",
+      "votes": 0
     },
     {
       "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
       "id": "98312",
-      "votes": 9
+      "votes": 54
     },
     {
-      "anecdote": "If it be like that, it really do be like that",
-      "votes": 1,
+      "content": "If it be like that, it really do be like that",
+      "votes": 20,
       "id": "66y6V7S"
     },
     {
-      "anecdote": "If it be like that, it really do be like that",
-      "votes": 0,
+      "content": "If it be like that, it really do be like that",
+      "votes": 5,
       "id": "mngnPb6"
     },
     {
-      "anecdote": "If it be like that, it really do be be like that",
-      "votes": 0,
+      "content": "If it be like that, it really do be be like that",
+      "votes": 5,
       "id": "7Oz_4Wu"
     },
     {
       "content": "If it be like that, it really do be like that",
-      "votes": 0,
+      "votes": 19,
       "id": "I9jjehJ"
     },
     {
       "content": "If it be like that, it really do be be like that",
-      "votes": 0,
+      "votes": 4,
       "id": "xac87yk"
     },
     {
       "content": "Redux thunkkaamista, sitä kun pääsis tekemään",
-      "votes": 0,
+      "votes": 11,
       "id": "ok9LQTo"
     },
     {
       "content": "If it be like that, it really do be like that",
-      "votes": 0,
+      "votes": 3,
       "id": "RJv93ls"
+    },
+    {
+      "content": "aa",
+      "votes": 5,
+      "id": "KSQmo-L"
+    },
+    {
+      "content": "I am going to be like that",
+      "votes": 0,
+      "id": "MAfXMSY"
     }
   ]
 }

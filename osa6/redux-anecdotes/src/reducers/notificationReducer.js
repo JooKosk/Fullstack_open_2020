@@ -1,12 +1,17 @@
 const notificationAtStart = ''
 
+var displayTime
+
 export const newNotification = (notification, timeout) => {
   return async dispatch => {
+    if (displayTime) {
+      clearTimeout(displayTime)
+    }
   dispatch({
     type: 'SET_NOTIFICATION',
     notification
   })
-  setTimeout(() => {
+    displayTime = setTimeout(() => {
       dispatch(removeNotification())
     }, timeout * 1000);
   }
