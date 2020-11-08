@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import { removeBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog, user, updateLikes }) => {
   blog.PropTypes = {
@@ -11,6 +12,7 @@ const Blog = ({ blog, user, updateLikes }) => {
   const toggleVisibility = () => {
     setAllInfoVisible(!allInfoVisible)
   }
+  const dispatch = useDispatch()
 
   const style = {
     paddingTop: 10,
@@ -20,14 +22,9 @@ const Blog = ({ blog, user, updateLikes }) => {
     marginBottom: 5
   }
 
-  const updatedBlog = {
-    ...blog,
-    likes: blog.likes + 1
-  }
-
-  const removeBlog = async () => {
+  const deleteBlog = () => {
     window.confirm(`Remove blog ${blog.title} by ${blog.author} ?`)
-    await blogService.remove(blog.id, blog)
+    dispatch(removeBlog(blog))
   }
 
   const showWhenAuthorized = { display: user.username === blog.user.username ? '' : 'none' }
@@ -43,13 +40,13 @@ const Blog = ({ blog, user, updateLikes }) => {
             {blog.url}
           </div>
           <div>
-            likes {blog.likes} <button onClick = {() => updateLikes(blog,updatedBlog)}>like</button>
+            likes {blog.likes} <button onClick = {() => updateLikes(blog)}>like</button>
           </div>
           <div>
             {blog.author}
           </div>
           <div style = {showWhenAuthorized}>
-            <button onClick={removeBlog} >remove</button>
+            <button onClick={deleteBlog} >remove</button>
           </div>
         </div>
       </div>
