@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import LoginForm from './LoginForm'
 
 const BlogForm = ({ createBlog }) => {
   const [blogInfo, setBlogInfo] = useState({
@@ -9,13 +7,10 @@ const BlogForm = ({ createBlog }) => {
     url: '',
   })
 
-  LoginForm.propTypes = {
-    createBlog: PropTypes.func.isRequired
-  }
   const handleChange = (event) => {
     setBlogInfo({
       ...blogInfo,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -25,15 +20,15 @@ const BlogForm = ({ createBlog }) => {
       title: blogInfo.title,
       author: blogInfo.author,
       url: blogInfo.url,
-      likes: 0
+      likes: 0,
     }
     createBlog(blogObject)
   }
 
   return (
-    <form onSubmit = {addBlog}>
+    <form onSubmit={addBlog}>
       <div>
-      title
+        title
         <input
           type="text"
           value={blogInfo.title}
@@ -43,7 +38,7 @@ const BlogForm = ({ createBlog }) => {
         />
       </div>
       <div>
-      author
+        author
         <input
           type="text"
           value={blogInfo.author}
@@ -53,7 +48,7 @@ const BlogForm = ({ createBlog }) => {
         />
       </div>
       <div>
-      url
+        url
         <input
           type="text"
           value={blogInfo.url}
