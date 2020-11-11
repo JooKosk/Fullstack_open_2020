@@ -3,6 +3,7 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Blogs from './components/Blogs'
+import BlogInfo from './components/BlogInfo'
 import Users from './components/Users'
 import User from './components/User'
 import Togglable from './components/Togglable'
@@ -12,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { initializeBlogs, newBlog } from './reducers/blogReducer'
 import blogService from './services/blogs'
 import userService from './services/users'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => {
   const blogs = useSelector((state) => state.blogs)
@@ -85,18 +86,31 @@ const App = () => {
       </div>
     )
   }
+  const navBarStyle = {
+    backgroundColor: 'orange',
+    padding: 8,
+  }
 
   return (
     <Router>
       <div>
+        <div style={navBarStyle}>
+          <Link to="/blogs" style={{ padding: 5 }}>
+            blogs
+          </Link>
+          <Link to="/users" style={{ padding: 5 }}>
+            users
+          </Link>
+          {user.name} logged in <button onClick={handleLogout}>logout</button>{' '}
+        </div>
         <h2>blogs</h2>
         <Notification />
-        <p>
-          {user.name} logged in <button onClick={handleLogout}>logout</button>{' '}
-        </p>
         <Switch>
           <Route path="/users/:id">
             <User users={users} />
+          </Route>
+          <Route path="/blogs/:id">
+            <BlogInfo blogs={blogs} />
           </Route>
           <Route path="/users">
             <Users users={users} />
@@ -105,7 +119,7 @@ const App = () => {
             <Togglable buttonLabel="new blog" ref={blogFormRef}>
               <BlogForm createBlog={addBlog} />
             </Togglable>
-            <Blogs blogs={sortedBlogs} user={user} />
+            <Blogs blogs={sortedBlogs} />
           </Route>
         </Switch>
       </div>

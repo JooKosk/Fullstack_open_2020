@@ -1,36 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
-import { removeBlog } from '../reducers/blogReducer'
-import { likeBlog } from '../reducers/blogReducer'
-const Blog = ({ blog, user }) => {
+import { Link } from 'react-router-dom'
+
+const Blog = ({ blog }) => {
   blog.PropTypes = {
-    blog: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
   }
-
-  const [allInfoVisible, setAllInfoVisible] = useState(false)
-  const toggleVisibility = () => {
-    setAllInfoVisible(!allInfoVisible)
-  }
-  const dispatch = useDispatch()
-
-  const style = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5,
-  }
-
+  /*
   const deleteBlog = () => {
     window.confirm(`Remove blog ${blog.title} by ${blog.author} ?`)
     dispatch(removeBlog(blog))
   }
-  const increaseLikes = (blog) => {
-    dispatch(likeBlog(blog))
-  }
-
+*/
+  /*
   const showWhenAuthorized = {
     display: user.username === blog.user.username ? '' : 'none',
   }
@@ -40,7 +22,9 @@ const Blog = ({ blog, user }) => {
       <div style={style} className="blogAllInfo">
         <div>
           <div>
-            {blog.title} {blog.author}{' '}
+            <Link to={`/blogs/${blog.id}`}>
+              {blog.title} {blog.author}
+            </Link>{' '}
             <button onClick={toggleVisibility}>hide</button>
           </div>
           <div>{blog.url}</div>
@@ -56,11 +40,21 @@ const Blog = ({ blog, user }) => {
       </div>
     )
   }
+*/
+  const style = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5,
+  }
+
   return (
     <div style={style} className="blog">
       <div>
-        {blog.title} {blog.author}{' '}
-        <button onClick={toggleVisibility}>view</button>
+        <Link to={`/blogs/${blog.id}`}>
+          {blog.title} {blog.author}
+        </Link>{' '}
       </div>
     </div>
   )

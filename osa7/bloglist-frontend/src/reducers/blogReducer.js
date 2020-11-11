@@ -1,21 +1,21 @@
 import blogService from '../services/blogs'
 
 export const newBlog = (blog) => {
-  return async dispatch => {
+  return async (dispatch) => {
     const addedBlog = await blogService.create(blog)
     dispatch({
-      type:'NEW_BLOG',
-      data: addedBlog
+      type: 'NEW_BLOG',
+      data: addedBlog,
     })
   }
 }
 
 export const initializeBlogs = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     const blogs = await blogService.getAll()
     dispatch({
       type: 'INIT_BLOGS',
-      data: blogs
+      data: blogs,
     })
   }
 }
@@ -23,47 +23,68 @@ export const initializeBlogs = () => {
 export const likeBlog = (blog) => {
   const likedBlog = {
     ...blog,
-    likes: blog.likes + 1
+    likes: blog.likes + 1,
   }
-  return async dispatch => {
+  return async (dispatch) => {
     const updatedBlog = await blogService.update(blog.id, likedBlog)
     dispatch({
       type: 'LIKE_BLOG',
-      data: updatedBlog
+      data: updatedBlog,
+    })
+  }
+}
+
+export const addComment = (blog, comment) => {
+  return async (dispatch) => {
+    const commentedBlog = await blogService.comment(blog.id, comment)
+    console.log(commentedBlog)
+    dispatch({
+      type: 'COMMENT_BLOG',
+      data: commentedBlog,
     })
   }
 }
 
 export const removeBlog = (blog) => {
-  return async dispatch => {
+  return async (dispatch) => {
     await blogService.remove(blog.id)
     dispatch({
       type: 'REMOVE_BLOG',
-      data: blog
+      data: blog,
     })
   }
 }
 
 const blogReducer = (state = [], action) => {
   switch (action.type) {
-  case 'INIT_BLOGS':
-    return action.data
-  case 'NEW_BLOG':
-    return [...state, action.data]
-  case 'LIKE_BLOG': {
-    const id = action.data.id
-    const blogToLike = state.find(b => b.id === id)
-    const likedBlog = {
-      ...blogToLike,
-      likes: blogToLike.likes + 1
+    case 'INIT_BLOGS':
+      return action.data
+    case 'NEW_BLOG':
+      return [...state, action.data]
+    case 'LIKE_BLOG': {
+      const id = action.data.id
+      const blogToLike = state.find((b) => b.id === id)
+      const likedBlog = {
+        ...blogToLike,
+        likes: blogToLike.likes + 1,
+      }
+      return state.map((blog) => (blog.id !== id ? blog : likedBlog))
     }
-    return state.map(blog =>
-      blog.id !== id ? blog:likedBlog
-    )}
-  case 'REMOVE_BLOG':
-    return [...state.filter(blog => blog.id !== action.data.id)]
-  default:
-    return state
+    case 'COMMENT_BLOG': {
+      const id = action.data.id
+      const blogToComment = state.find((c) => c.id === id)
+      const commentedBlog = {
+        ...blogToComment,
+        comments: blogToComment.comments.concat(
+          action.data.comments[action.data.comments.length]
+        ),
+      }
+      return state.map((blog) => (blog.id !== id ? blog : commentedBlog))
+    }
+    case 'REMOVE_BLOG':
+      return [...state.filter((blog) => blog.id !== action.data.id)]
+    default:
+      return state
   }
 }
 
