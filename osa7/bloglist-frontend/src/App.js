@@ -40,20 +40,17 @@ const App = () => {
       setUsers(users)
     }
     getUsers()
-  }, [])
+  }, [dispatch])
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    try {
-      dispatch(login(username, password))
-      dispatch(setUser(user))
-      setUsername('')
-      setPassword('')
-    } catch (exception) {
-      dispatch(newNotification('wrong credentials', 5))
-    }
+    dispatch(login(username, password))
+    dispatch(setUser(user))
+    setUsername('')
+    setPassword('')
   }
   const handleLogout = async () => {
+    dispatch(newNotification('You logged out.', 5))
     dispatch(setUser(null))
     window.localStorage.removeItem('loggedBlogUser')
   }

@@ -1,28 +1,28 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { likeBlog } from '../reducers/blogReducer'
+import { likeBlog, addComment } from '../reducers/blogReducer'
+import { useField } from '../hooks/'
 
 const BlogInfo = ({ blogs }) => {
+  const ignoreReset = ({ reset, ...rest }) => rest
   const id = useParams().id
   const blog = blogs.find((blog) => blog.id === id)
+  const commentField = ignoreReset(useField('text'))
   const dispatch = useDispatch()
 
   const increaseLikes = (blog) => {
     dispatch(likeBlog(blog))
   }
 
-  const addComment = (event) => {
+  const newComment = (event) => {
     event.preventDefault()
-    const comment = event.target.comment.value
-    console.log(comment)
-    console.log(blog)
-    event.target.comment.value = ''
-    //dispatch(addComment(blog, comment))
+    dispatch(addComment(blog, commentField.value))
   }
   if (!blog) {
     return null
   }
+
   return (
     <div>
       <h2>
@@ -37,13 +37,13 @@ const BlogInfo = ({ blogs }) => {
       </p>
       <p>added by {blog.user.name} </p>
       <h3>comments</h3>
-      <form onSubmit={addComment}>
-        <input name="comment"></input>
+      <form onSubmit={newComment}>
+        <input {...commentField}></input>
         <button type="submit">add comment</button>
       </form>
       <ul>
         {blog.comments.map((comment) => (
-          <li key={blog.id}>{comment}</li>
+          <li key={comment.id}>{comment.content}</li>
         ))}
       </ul>
     </div>

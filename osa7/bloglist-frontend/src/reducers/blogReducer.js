@@ -1,15 +1,5 @@
 import blogService from '../services/blogs'
 
-export const newBlog = (blog) => {
-  return async (dispatch) => {
-    const addedBlog = await blogService.create(blog)
-    dispatch({
-      type: 'NEW_BLOG',
-      data: addedBlog,
-    })
-  }
-}
-
 export const initializeBlogs = () => {
   return async (dispatch) => {
     const blogs = await blogService.getAll()
@@ -20,6 +10,15 @@ export const initializeBlogs = () => {
   }
 }
 
+export const removeBlog = (blog) => {
+  return async (dispatch) => {
+    await blogService.remove(blog.id)
+    dispatch({
+      type: 'REMOVE_BLOG',
+      data: blog,
+    })
+  }
+}
 export const likeBlog = (blog) => {
   const likedBlog = {
     ...blog,
@@ -33,24 +32,23 @@ export const likeBlog = (blog) => {
     })
   }
 }
-
-export const addComment = (blog, comment) => {
+export const newBlog = (blog) => {
   return async (dispatch) => {
-    const commentedBlog = await blogService.comment(blog.id, comment)
-    console.log(commentedBlog)
+    const addedBlog = await blogService.create(blog)
     dispatch({
-      type: 'COMMENT_BLOG',
-      data: commentedBlog,
+      type: 'NEW_BLOG',
+      data: addedBlog,
     })
   }
 }
 
-export const removeBlog = (blog) => {
+export const addComment = (blog, comment) => {
   return async (dispatch) => {
-    await blogService.remove(blog.id)
+    const returnedComment = await blogService.comment(blog.id, comment)
     dispatch({
-      type: 'REMOVE_BLOG',
-      data: blog,
+      type: 'COMMENT_BLOG',
+      data: returnedComment,
+      id: blog.id,
     })
   }
 }
@@ -71,15 +69,12 @@ const blogReducer = (state = [], action) => {
       return state.map((blog) => (blog.id !== id ? blog : likedBlog))
     }
     case 'COMMENT_BLOG': {
-      const id = action.data.id
-      const blogToComment = state.find((c) => c.id === id)
+      const blogToComment = state.find((c) => c.id === action.id)
       const commentedBlog = {
         ...blogToComment,
-        comments: blogToComment.comments.concat(
-          action.data.comments[action.data.comments.length]
-        ),
+        comments: blogToComment.comments.concat(action.data),
       }
-      return state.map((blog) => (blog.id !== id ? blog : commentedBlog))
+      return state.map((blog) => (blog.id !== action.id ? blog : commentedBlog))
     }
     case 'REMOVE_BLOG':
       return [...state.filter((blog) => blog.id !== action.data.id)]
