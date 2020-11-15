@@ -7,13 +7,14 @@ import BlogInfo from './components/BlogInfo'
 import Users from './components/Users'
 import User from './components/User'
 import Togglable from './components/Togglable'
+import Navibar from './components/Navbar'
 import { login, setUser } from './reducers/loginReducer'
 import { newNotification } from './reducers/notificationReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import { initializeBlogs, newBlog } from './reducers/blogReducer'
 import blogService from './services/blogs'
 import userService from './services/users'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 const App = () => {
   const blogs = useSelector((state) => state.blogs)
@@ -83,24 +84,12 @@ const App = () => {
       </div>
     )
   }
-  const navBarStyle = {
-    backgroundColor: 'orange',
-    padding: 8,
-  }
 
   return (
     <Router>
       <div>
-        <div style={navBarStyle}>
-          <Link to="/blogs" style={{ padding: 5 }}>
-            blogs
-          </Link>
-          <Link to="/users" style={{ padding: 5 }}>
-            users
-          </Link>
-          {user.name} logged in <button onClick={handleLogout}>logout</button>{' '}
-        </div>
-        <h2>blogs</h2>
+        <Navibar user={user} handleLogout={handleLogout} />
+        <h3 style={{ padding: 10 }}>Blog app 5000 </h3>
         <Notification />
         <Switch>
           <Route path="/users/:id">

@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 const Users = ({ users }) => {
   return (
     <div>
-      <table>
+      <Table>
         <tbody>
           <tr>
-            <th></th>
+            <th>User</th>
             <th>blogs created</th>
           </tr>
           {users.map((user) => (
@@ -19,7 +20,7 @@ const Users = ({ users }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   )
 }

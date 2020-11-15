@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { ListGroup } from 'react-bootstrap'
 
 const User = ({ users }) => {
   const id = useParams().id
@@ -8,14 +9,15 @@ const User = ({ users }) => {
     return null
   }
   return (
-    <div>
-      <h2>{user.name}</h2>
-      <h3>added blogs</h3>
-      <ul>
+    <div style={{ paddingTop: 20 }}>
+      <h3>Blogs added by {user.name.split(' ')[0]}</h3>
+      <ListGroup as="ul">
         {user.blogs.map((blog) => (
-          <li key={blog.id}>{blog.title}</li>
+          <ListGroup.Item as="li" key={blog.id}>
+            {blog.title}
+          </ListGroup.Item>
         ))}
-      </ul>
+      </ListGroup>
     </div>
   )
 }
